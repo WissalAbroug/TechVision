@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Contact</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            display: block;
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            min-height: 18px;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-loader {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes spin {
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        .btn-submit.loading .btn-loader {
+            display: block;
+        }
+
+        .btn-submit.loading .btn-text {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <div class="form-wrapper">
+            <h1>Formulaire de Contact</h1>
+            <p class="form-subtitle">Remplissez tous les champs pour nous contacter</p>
+            
+            <form id="contactForm" method="post" action="traitement.php" novalidate>
+                <div class="form-group">
+                    <label for="nom">Nom complet <span class="required">*</span></label>
+                    <input
+                        type="text"
+                        id="nom"
+                        name="nom"
+                        aria-required="true"
+                        aria-describedby="nom-error"
+                    >
+                    <span class="error-message" id="nom-error" role="alert"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        aria-required="true"
+                        aria-describedby="email-error"
+                    >
+                    <span class="error-message" id="email-error" role="alert"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="tel">Numéro de téléphone <span class="required">*</span></label>
+                    <input
+                        type="tel"
+                        id="tel"
+                        name="telephone"
+                        aria-required="true"
+                        aria-describedby="tel-error"
+                        pattern="[0-9]{8,15}"
+                        title="Entre 8 et 15 chiffres uniquement"
+                    >
+                    <span class="error-message" id="tel-error" role="alert"></span>
+                </div>
+
+                <div class="success-message" id="successMessage" role="status">
+                    <strong>✓ Succès!</strong> Votre demande a été enregistrée avec succès.
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <span class="btn-text">Envoyer</span>
+                    <span class="btn-loader"></span>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script type="text/javascript">
+        const form = document.getElementById('contactForm');
+        const submitBtn = form.querySelector('.btn-submit');
+        const successMessage = document.getElementById('successMessage');
+
+        // Validation en temps réel
+        form.querySelectorAll('input').forEach(input => {
+            input.addEventListener('blur', () => validateField(input));
+            input.addEventListener('input', () => {
+                if (input.classList.contains('error')) {
+                    validateField(input);
+                }
+            });
+        });
+
+        // Validation d'un champ
+        function validateField(input) {
+            const errorSpan = document.getElementById(`${input.id}-error`);
+            let errorMessage = '';
+
+            if (!input.value.trim()) {
+                errorMessage = 'Ce champ est requis';
+            } else if (input.type === 'email' && !isValidEmail(input.value)) {
+                errorMessage = 'Email invalide';
+            } else if (input.type === 'tel' && !isValidPhone(input.value)) {
+                errorMessage = 'Le téléphone doit contenir entre 8 et 15 chiffres';
+            } else if (input.id === 'nom' && input.value.trim().length < 2) {
+                errorMessage = 'Le nom doit contenir au moins 2 caractères';
+            }
+
+            if (errorMessage) {
+                input.classList.add('error');
+                errorSpan.textContent = errorMessage;
+                return false;
+            } else {
+                input.classList.remove('error');
+                errorSpan.textContent = '';
+                return true;
+            }
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidPhone(phone) {
+            return /^[0-9]{8,15}$/.test(phone);
+        }
+
+        // Soumission du formulaire
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Validation de tous les champs
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!validateField(input)) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) return;
+
+            // Préparation de l'envoi
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            successMessage.classList.remove('show');
+
+            try {
+                const formData = new FormData(form);
+                
+                const response = await fetch('traitement.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    successMessage.textContent = `✓ Succès! ${result.message}`;
+                    successMessage.classList.add('show');
+                    form.reset();
+                    
+                    // Masquer le message après 5 secondes
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    // Affichage des erreurs spécifiques
+                    if (result.data && result.data.errors) {
+                        Object.keys(result.data.errors).forEach(field => {
+                            const input = document.getElementById(field === 'telephone' ? 'tel' : field);
+                            if (input) {
+                                input.classList.add('error');
+                                document.getElementById(`${input.id}-error`).textContent = result.data.errors[field];
+                            }
+                        });
+                    } else {
+                        alert(result.message || 'Une erreur est survenue');
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur de connexion au serveur');
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
