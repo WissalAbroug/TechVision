@@ -1,0 +1,217 @@
+/* ================================================================
+   PathFinder AI — Animations CSS
+================================================================ */
+
+/* ── Keyframes ───────────────────────────────────────────── */
+@keyframes fadeIn     { from { opacity: 0; }                        to { opacity: 1; } }
+@keyframes fadeInUp   { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-24px);} to { opacity: 1; transform: translateY(0); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(32px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInLeft  { from { opacity: 0; transform: translateX(-32px);} to { opacity: 1; transform: translateX(0); } }
+@keyframes scaleIn    { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: scale(1); } }
+@keyframes pulse      { 0%,100% { opacity: 1; } 50% { opacity: .5; } }
+@keyframes float      { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes spin       { to { transform: rotate(360deg); } }
+@keyframes progressFill { from { width: 0; } }
+@keyframes countUp    { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── Animation Utility Classes ───────────────────────────── */
+.animate-fade-in      { animation: fadeIn .5s ease both; }
+.animate-fade-in-up   { animation: fadeInUp .6s ease both; }
+.animate-fade-in-down { animation: fadeInDown .5s ease both; }
+.animate-slide-right  { animation: slideInRight .5s ease both; }
+.animate-scale-in     { animation: scaleIn .4s ease both; }
+.animate-float        { animation: float 3s ease-in-out infinite; }
+.animate-pulse        { animation: pulse 2s ease infinite; }
+
+/* Stagger delays */
+.delay-100 { animation-delay: .1s; }
+.delay-200 { animation-delay: .2s; }
+.delay-300 { animation-delay: .3s; }
+.delay-400 { animation-delay: .4s; }
+.delay-500 { animation-delay: .5s; }
+.delay-600 { animation-delay: .6s; }
+.delay-700 { animation-delay: .7s; }
+.delay-800 { animation-delay: .8s; }
+
+/* ── Gradient Text ───────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #2563EB, #7C3AED, #22C55E);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 4s ease infinite;
+}
+.gradient-text-2 {
+  background: linear-gradient(135deg, #2563EB, #7C3AED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Floating Orbs (Hero BG) ─────────────────────────────── */
+.hero-orbs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .18;
+  mix-blend-mode: screen;
+}
+.orb-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; left: -150px; animation: float 10s ease-in-out infinite; }
+.orb-2 { width: 400px; height: 400px; background: var(--purple); top: 40%; right: -100px; animation: float 12s ease-in-out infinite reverse; }
+.orb-3 { width: 350px; height: 350px; background: var(--success); bottom: -100px; left: 35%; animation: float 14s ease-in-out infinite 2s; }
+
+/* ── Hover Lift ─────────────────────────────────────────── */
+.hover-lift { transition: transform .25s ease, box-shadow .25s ease; }
+.hover-lift:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(37,99,235,.18); }
+
+/* ── Hover Glow ─────────────────────────────────────────── */
+.hover-glow:hover { box-shadow: 0 0 24px rgba(37,99,235,.35); }
+
+/* ── Shimmer Loading ──────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position:  1000px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.8s infinite linear;
+  border-radius: var(--radius-sm);
+}
+.skeleton-text  { height: 16px; margin-bottom: .5rem; }
+.skeleton-title { height: 24px; width: 60%; }
+.skeleton-card  { height: 120px; border-radius: var(--radius); }
+
+/* ── Progress Bar Animation ───────────────────────────────── */
+.progress-fill { animation: progressFill 1.2s cubic-bezier(.4,0,.2,1) both; }
+
+/* ── Number Counter ───────────────────────────────────────── */
+.count-up { animation: countUp .8s ease both; }
+
+/* ── Matching Score Ring ──────────────────────────────────── */
+.score-ring {
+  position: relative;
+  width: 90px; height: 90px;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+}
+.score-ring svg {
+  position: absolute;
+  top: 0; left: 0;
+  transform: rotate(-90deg);
+}
+.score-ring-circle {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 6;
+  stroke-dasharray: 251.2;
+  stroke-dashoffset: 251.2;
+  transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);
+}
+.score-ring-val {
+  font-size: .95rem; font-weight: 800;
+  color: var(--text-primary);
+  position: relative; z-index: 1;
+}
+
+/* ── Skill Tags ────────────────────────────────────────────── */
+.skill-tag {
+  display: inline-flex; align-items: center;
+  padding: .25rem .7rem;
+  background: var(--primary-50);
+  border: 1px solid var(--primary-100);
+  color: var(--primary-dark);
+  border-radius: var(--radius-full);
+  font-size: .78rem; font-weight: 600;
+  transition: var(--transition);
+}
+.skill-tag:hover { background: var(--primary-100); }
+.skill-tag.missing {
+  background: var(--danger-50);
+  border-color: var(--danger-100);
+  color: var(--danger);
+}
+.skill-tag.found {
+  background: var(--success-50);
+  border-color: var(--success-100);
+  color: #15803D;
+}
+
+/* ── Timeline ──────────────────────────────────────────────── */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: '';
+  position: absolute; left: .75rem; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 1.5rem; }
+.timeline-dot {
+  position: absolute; left: -1.35rem; top: .35rem;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--bg-card);
+  box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+/* ── Chip Input ───────────────────────────────────────────── */
+.chips-container {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+  padding: .6rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  min-height: 44px;
+  cursor: text;
+  transition: var(--transition);
+}
+.chips-container:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,.12); }
+.chip {
+  display: inline-flex; align-items: center; gap: .3rem;
+  background: var(--primary-100); color: var(--primary-dark);
+  padding: .2rem .6rem; border-radius: var(--radius-full);
+  font-size: .8rem; font-weight: 600;
+}
+.chip-remove { cursor: pointer; opacity: .6; }
+.chip-remove:hover { opacity: 1; }
+
+/* ── Step Indicator ───────────────────────────────────────── */
+.steps {
+  display: flex; gap: 0;
+  counter-reset: step;
+}
+.step {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center;
+  position: relative;
+}
+.step::before {
+  counter-increment: step;
+  content: counter(step);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--border); color: var(--text-muted);
+  font-weight: 700; font-size: .85rem;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: .6rem; z-index: 1;
+  transition: var(--transition);
+}
+.step.active::before  { background: var(--primary); color: #fff; box-shadow: 0 0 0 4px var(--primary-100); }
+.step.done::before    { background: var(--success);  color: #fff; content: '✓'; }
+.step-label { font-size: .78rem; color: var(--text-muted); font-weight: 500; text-align: center; }
+.step.active .step-label { color: var(--primary); font-weight: 600; }
+.step::after {
+  content: '';
+  position: absolute; top: 18px; left: calc(50% + 18px); right: calc(-50% + 18px);
+  height: 2px; background: var(--border);
+}
+.step:last-child::after { display: none; }
+.step.done::after { background: var(--success); }
+
+/* ── Transition Page ──────────────────────────────────────── */
+.page-enter { animation: fadeInUp .5s ease both; }

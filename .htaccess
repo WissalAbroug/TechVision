@@ -1,0 +1,15 @@
+Options -Indexes
+Options +FollowSymLinks
+
+RewriteEngine On
+RewriteBase /pathfinder%20ai/
+
+RewriteRule ^config/ - [F,L]
+RewriteRule ^models/ - [F,L]
+RewriteRule ^controllers/ - [F,L]
+RewriteRule ^database/ - [F,L]
+RewriteRule ^lang/ - [F,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
